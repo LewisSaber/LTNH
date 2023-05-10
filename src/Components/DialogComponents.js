@@ -31,7 +31,7 @@ export function NewOkCancelDialog(text) {
     )
     .setHoverDecoration(ButtonStyles.hoverDarker1)
     .addEventListener("mousedown", (_, target) => {
-      target.getParent().dispatchEvent("Ok").close()
+      target.getParent().dispatchEvent("OK").close()
     })
   new Button()
     .setText("Cancel", 1.1, undefined, 0, 0.13)
@@ -52,7 +52,7 @@ export function NewOkCancelDialog(text) {
       newMinecraftStyle(0.1)
     )
     .addEventListener("mousedown", (_, target) => {
-      target.getParent().dispatchEvent("Cancel").close()
+      target.getParent().dispatchEvent("CANCEL").close()
     })
     .setHoverDecoration(ButtonStyles.hoverDarker1)
 
@@ -63,6 +63,5 @@ export function NewOkCancelDialog(text) {
       .attachToParent(component)
       .centerText()
       .setFontSize(2.2)
-  console.log(component)
   return component
 }

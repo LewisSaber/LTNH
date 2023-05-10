@@ -1,8 +1,10 @@
 import Player from "../Game/Player.js"
+import EventHandler from "../Libs/LUI/EventHandler.js"
 import { mergeObject } from "../Libs/LUI/Utility.js"
 
-export default class SaveManager {
+export default class SaveManager extends EventHandler {
   constructor() {
+    super()
     this.sessionInformation = {
       account_id: undefined,
     }
@@ -78,12 +80,15 @@ export default class SaveManager {
   }
 
   addInfoToPlayer(player, information, save = true) {
-    console.log(player, information)
     for (const key in information) {
       player.addStat(key, information[key])
     }
     if (save) {
       SaveManager.saveAccount(player)
     }
+  }
+  deleteAccount(account) {
+    localStorage.removeItem("save_" + account.id)
+    this.dispatchEvent("deletedAccount", { id: account.id })
   }
 }

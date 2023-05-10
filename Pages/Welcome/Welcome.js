@@ -132,7 +132,7 @@ function createSaveManagerComponent(
       label.setText(to)
     })
 
-    baseItem
+    let component = baseItem
       .copy()
       .addComponent(label)
       .addComponent(
@@ -160,6 +160,11 @@ function createSaveManagerComponent(
           })
       )
       .attachToParent(saveListComponent)
+    saveManager.addEventListener("deletedAccount", (evt) => {
+      if (evt.id == player.id) {
+        component.setParent()
+      }
+    })
   }
 
   let newSaveItem = baseItem
@@ -296,14 +301,20 @@ function createSaveEditorComponent(
       .setDecoration({ "font-family": "sofia sans" })
   )
   delete_button.options.informational.dialog = delete_dialog
+  delete_dialog.addEventListener("OK", (_, target) => {
+    saveManager.deleteAccount(target.player)
+    saveListComponent.open()
+  })
 
   saveEditorComponent.addEventListener("open", ({ player }) => {
     form.fill({ nickName: player.getNickName() })
     save.player = player
+    delete_dialog.player = player
   })
   saveEditorComponent.addEventListener("close", () => {
     form.fill({})
     delete save.player
+    delete delete_dialog.player
   })
   saveEditorComponent.addComponent(form)
 }
