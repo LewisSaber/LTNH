@@ -41,7 +41,7 @@ function createComponents() {
         .setSize("80%", "80%")
         .setName("Background")
         .setCenterAligment()
-        .setImg("../../Assets/ButtonIcons/Play.png")
+        .setImg("../../Assets/ButtonIcons/play.png")
         .setDecoration(() => ({
           "image-rendering": "pixelated",
         }))
@@ -143,7 +143,7 @@ function createSaveManagerComponent(
           .setPosition(1, 0)
           .setDecoration(buttonDecoration)
           .setHoverDecoration(ButtonStyles.hoverDarker1)
-          .setIcon("../../Assets/ButtonIcons/Play.png")
+          .setIcon("../../Assets/ButtonIcons/play.png")
           .addEventListener("mousedown", () => {
             // saveCreatorComponent.open()
           })
@@ -154,7 +154,7 @@ function createSaveManagerComponent(
           .setPosition(0.3, 0.3)
           .setDecoration(buttonDecoration)
           .setHoverDecoration(ButtonStyles.hoverDarker1)
-          .setIcon("../../Assets/ButtonIcons/Edit.png")
+          .setIcon("../../Assets/ButtonIcons/edit.png")
           .addEventListener("mousedown", () => {
             saveEditorComponent.open({ player })
           })
@@ -185,7 +185,7 @@ function createSaveManagerComponent(
         .setPosition(1, 0)
         .setDecoration(buttonDecoration)
         .setHoverDecoration(ButtonStyles.hoverDarker1)
-        .setIcon("../../Assets/ButtonIcons/Plus.png")
+        .setIcon("../../Assets/ButtonIcons/plus.png")
         .addEventListener("mousedown", () => {
           saveCreatorComponent.open()
         })
