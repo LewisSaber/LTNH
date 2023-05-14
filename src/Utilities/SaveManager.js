@@ -33,10 +33,10 @@ export default class SaveManager extends EventHandler {
   static welcomePath = "/Pages/Welcome/Welcome.html"
 
   redirectToGame = () => {
-    if (this.page != "game") window.location.href = SaveManager.gamePath
+    if (this.page != "game") window.location.replace(SaveManager.gamePath)
   }
   redirectToWelcome = () => {
-    if (this.page != "welcome") window.location.href = SaveManager.welcomePath
+    if (this.page != "welcome") window.location.replace(SaveManager.welcomePath)
   }
   loadAllPlayers() {
     this.saves = this.getAllSaveFiles()
