@@ -18,8 +18,8 @@ window.addEventListener("load", function () {
   let components = createComponents()
   window.components = components
 
-  let saveManager = new SaveManager()
-  saveManager.loadAllPlayers()
+  let saveManager = new SaveManager("welcome")
+
   createSaveManagerComponent(
     saveManager,
     components.saveListComponent,
@@ -145,7 +145,8 @@ function createSaveManagerComponent(
           .setHoverDecoration(ButtonStyles.hoverDarker1)
           .setIcon("../../Assets/ButtonIcons/play.png")
           .addEventListener("mousedown", () => {
-            // saveCreatorComponent.open()
+            saveManager.switchToAccount(player)
+            saveManager.redirectToGame()
           })
       )
       .addComponent(
@@ -365,6 +366,7 @@ function createSaveCreatorComponent(
       let data = target.getParentByName("formAccount").getData()
       if (data) {
         saveManager.createNewAccount(data)
+        saveManager.redirectToGame()
       }
     })
   let cancelButton = new Button()

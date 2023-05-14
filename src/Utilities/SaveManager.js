@@ -3,14 +3,41 @@ import EventHandler from "../Libs/LUI/EventHandler.js"
 import { mergeObject } from "../Libs/LUI/Utility.js"
 
 export default class SaveManager extends EventHandler {
-  constructor() {
+  constructor(page) {
     super()
+    if (SaveManager.instance) return SaveManager.instance
+    SaveManager.instance = this
+    this.page = page
     this.sessionInformation = {
       account_id: undefined,
     }
     this.loadSessionData()
+    this.loadAllPlayers()
+
+    if (this.sessionInformation.account_id != undefined) {
+      if (this.getPlayerWithId(this.sessionInformation.account_id))
+        this.redirectToGame()
+      else this.sessionInformation.account_id = undefined
+    } else this.redirectToWelcome()
+
+    window.addEventListener("beforeunload", () => {
+      this.saveSessionData()
+      let player = this.getPlayerWithId(this.sessionInformation.account_id)
+      if (player) SaveManager.saveAccount(player)
+    })
   }
 
+  static sessionSavePath = "LTNH_Session_SAVE"
+  static savePattern = /^save_\d{12}$/
+  static gamePath = "/Pages/Game/Game.html"
+  static welcomePath = "/Pages/Welcome/Welcome.html"
+
+  redirectToGame = () => {
+    if (this.page != "game") window.location.href = SaveManager.gamePath
+  }
+  redirectToWelcome = () => {
+    if (this.page != "welcome") window.location.href = SaveManager.welcomePath
+  }
   loadAllPlayers() {
     this.saves = this.getAllSaveFiles()
     this.players = this.getAllPlayers()
@@ -27,6 +54,12 @@ export default class SaveManager extends EventHandler {
     }
     return players
   }
+  clearSessionPlayerId() {
+    let player = this.getPlayerWithId(this.sessionInformation.account_id)
+    if (player) SaveManager.saveAccount(player)
+    this.sessionInformation.account_id = undefined
+    this.saveSessionData()
+  }
 
   loadSessionData() {
     let sessionData = localStorage.getItem(SaveManager.sessionSavePath)
@@ -37,6 +70,12 @@ export default class SaveManager extends EventHandler {
         sessionData
       )
     }
+  }
+  getPlayerWithId(id) {
+    for (let player of this.players) {
+      if (player.id == id) return player
+    }
+    return undefined
   }
 
   saveSessionData() {
@@ -56,8 +95,7 @@ export default class SaveManager extends EventHandler {
     }
     return saves
   }
-  static sessionSavePath = "LTNH_Session_SAVE"
-  static savePattern = /^save_\d{12}$/
+
   static generateUniqueId() {
     const timestamp = new Date().getTime().toString()
     return `${timestamp}`.substring(0, 12)

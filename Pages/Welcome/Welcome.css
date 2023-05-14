@@ -17,7 +17,7 @@
 }
 
 .spin {
-  animation: spin 0.2s cubic-bezier(0.42, 0.01, 0.58, 1) forwards;
+  animation: spin 1.6s cubic-bezier(0.42, 0.01, 0.58, 1) forwards;
 }
 .input-label-move-down {
   animation: move-down 0.3s forwards;
