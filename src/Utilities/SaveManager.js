@@ -29,8 +29,8 @@ export default class SaveManager extends EventHandler {
 
   static sessionSavePath = "LTNH_Session_SAVE"
   static savePattern = /^save_\d{12}$/
-  static gamePath = "/Pages/Game/Game.html"
-  static welcomePath = "/Pages/Welcome/Welcome.html"
+  static gamePath = "../Game/Game.html"
+  static welcomePath = "../Welcome/Welcome.html"
 
   redirectToGame = () => {
     if (this.page != "game") window.location.replace(SaveManager.gamePath)
