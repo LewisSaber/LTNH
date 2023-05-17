@@ -1,5 +1,5 @@
 import MainComponent from "../../src/Libs/LUI/MainComponent.js"
-import { functionMerger, loadUtility } from "../../src/Libs/LUI/Utility.js"
+import { functionMerger } from "../../src/Libs/LUI/Utility.js"
 import BackGround from "../../src/Libs/LUI/Background.js"
 import Component from "../../src/Libs/LUI/Component.js"
 import Button from "../../src/Libs/LUI/Button.js"
@@ -15,7 +15,6 @@ import { NewOkCancelDialog } from "../../src/Components/DialogComponents.js"
 import Player from "../../src/Game/Player.js"
 
 window.addEventListener("load", function () {
-  loadUtility()
   let components = createComponents()
   window.components = components
 

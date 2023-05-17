@@ -1,6 +1,6 @@
 import Player from "../Game/Player.js"
 import EventHandler from "../Libs/LUI/EventHandler.js"
-import { mergeObject } from "../Libs/LUI/Utility.js"
+import ObjectHelper from "../Libs/LUI/Helpers/ObjectHelper.js"
 
 export default class SaveManager extends EventHandler {
   static events = { deletedAccount: "deletedAccount" }
@@ -66,7 +66,7 @@ export default class SaveManager extends EventHandler {
     let sessionData = localStorage.getItem(SaveManager.sessionSavePath)
     if (sessionData != null) {
       sessionData = JSON.parse(sessionData)
-      this.sessionInformation = mergeObject(
+      this.sessionInformation = ObjectHelper.merge(
         this.sessionInformation,
         sessionData
       )

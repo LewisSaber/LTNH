@@ -1,5 +1,5 @@
 import EventHandler from "../Libs/LUI/EventHandler.js"
-import { mergeObject } from "../Libs/LUI/Utility.js"
+import ObjectHelper from "../Libs/LUI/Helpers/ObjectHelper.js"
 
 export default class Player extends EventHandler {
   static events = {
@@ -22,7 +22,7 @@ export default class Player extends EventHandler {
       default:
         if (this[statName] != undefined)
           if (this[statName] instanceof Object) {
-            this[statName] = mergeObject(this[statName], value)
+            this[statName] = ObjectHelper.merge(this[statName], value)
           } else {
             this[statName] = value
           }
