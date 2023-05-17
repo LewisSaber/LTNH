@@ -12,6 +12,7 @@ import Label from "../../src/Libs/LUI/Label.js"
 import Form from "../../src/Libs/LUI/Form.js"
 import { AnimatedInput1 } from "../../src/Components/InputComponents.js"
 import { NewOkCancelDialog } from "../../src/Components/DialogComponents.js"
+import Player from "../../src/Game/Player.js"
 
 window.addEventListener("load", function () {
   loadUtility()
@@ -51,10 +52,10 @@ function createComponents() {
     )
     .setHoverDecoration(ButtonStyles.hoverDarker1)
     .setCenterAligment()
-    .addEventListener("mousedown", (evt, target) => {
+    .addEventListener(Component.events.mousedown, (evt, target) => {
       target.addCSSClass("spin")
     })
-    .addEventListener("animationend", (_, target) => {
+    .addEventListener(Component.events.animationend, (_, target) => {
       target.removeCSSClass("spin")
       components.saveManagerComponent.open()
     })
@@ -128,7 +129,7 @@ function createSaveManagerComponent(
       .setPosition(2, 0.8)
       .setPointerEvents(false)
       .setFontSize(1.2)
-    player.addEventListener("nickChange", ({ to }) => {
+    player.addEventListener(Player.events.nickChange, ({ to }) => {
       label.setText(to)
     })
 
@@ -144,7 +145,7 @@ function createSaveManagerComponent(
           .setDecoration(buttonDecoration)
           .setHoverDecoration(ButtonStyles.hoverDarker1)
           .setIcon("../../Assets/ButtonIcons/play.png")
-          .addEventListener("mousedown", () => {
+          .addEventListener(Component.events.mousedown, () => {
             saveManager.switchToAccount(player)
             saveManager.redirectToGame()
           })
@@ -161,7 +162,7 @@ function createSaveManagerComponent(
           })
       )
       .attachToParent(saveListComponent)
-    saveManager.addEventListener("deletedAccount", (evt) => {
+    saveManager.addEventListener(SaveManager.events.deletedAccount, (evt) => {
       if (evt.id == player.id) {
         component.setParent()
       }
@@ -187,7 +188,7 @@ function createSaveManagerComponent(
         .setDecoration(buttonDecoration)
         .setHoverDecoration(ButtonStyles.hoverDarker1)
         .setIcon("../../Assets/ButtonIcons/plus.png")
-        .addEventListener("mousedown", () => {
+        .addEventListener(Component.events.mousedown, () => {
           saveCreatorComponent.open()
         })
     )
@@ -244,7 +245,7 @@ function createSaveEditorComponent(
     )
     .setHoverDecoration(ButtonStyles.hoverDarker1)
     .attachToParent(form)
-    .addEventListener("mousedown", (_, target) => {
+    .addEventListener(Component.events.mousedown, (_, target) => {
       let data = form.getData()
       if (data) {
         saveManager.addInfoToPlayer(target.player, data)
@@ -265,7 +266,7 @@ function createSaveEditorComponent(
     .setCenterAligment(true, false)
     .setPosition(0, 1)
     .setHoverDecoration(ButtonStyles.hoverDarker1)
-    .addEventListener("mousedown", () => {
+    .addEventListener(Component.events.mousedown, () => {
       saveListComponent.open()
     })
     .attachToParent(saveEditorComponent)
@@ -285,7 +286,7 @@ function createSaveEditorComponent(
     .setPosition(0.6, 1)
     .setIcon("../../Assets/ButtonIcons/delete.png")
     .setHoverDecoration(ButtonStyles.hoverDarker1)
-    .addEventListener("mousedown", (_, target) => {
+    .addEventListener(Component.events.mousedown, (_, target) => {
       target.options.informational.dialog.open()
     })
     .attachToParent(saveEditorComponent)
@@ -307,12 +308,12 @@ function createSaveEditorComponent(
     saveListComponent.open()
   })
 
-  saveEditorComponent.addEventListener("open", ({ player }) => {
+  saveEditorComponent.addEventListener(Component.events.open, ({ player }) => {
     form.fill({ nickName: player.getNickName() })
     save.player = player
     delete_dialog.player = player
   })
-  saveEditorComponent.addEventListener("close", () => {
+  saveEditorComponent.addEventListener(Component.events.close, () => {
     form.fill({})
     delete save.player
     delete delete_dialog.player
@@ -362,7 +363,7 @@ function createSaveCreatorComponent(
     )
     .setHoverDecoration(ButtonStyles.hoverDarker1)
     .attachToParent(form)
-    .addEventListener("mousedown", (_, target) => {
+    .addEventListener(Component.events.mousedown, (_, target) => {
       let data = target.getParentByName("formAccount").getData()
       if (data) {
         saveManager.createNewAccount(data)
@@ -386,7 +387,7 @@ function createSaveCreatorComponent(
     .setCenterAligment(true, false)
     .setPosition(0, 1)
     .setHoverDecoration(ButtonStyles.hoverDarker1)
-    .addEventListener("mousedown", () => {
+    .addEventListener(Component.events.mousedown, () => {
       saveListComponent.open()
     })
     .attachToParent(saveCreatorComponent)

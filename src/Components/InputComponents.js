@@ -1,4 +1,5 @@
 import Component from "../Libs/LUI/Component.js"
+import Form from "../Libs/LUI/Form.js"
 import Input from "../Libs/LUI/Input.js"
 import Label from "../Libs/LUI/Label.js"
 
@@ -14,7 +15,7 @@ new Input()
     "font-family": "sofia sans",
     "border-bottom": "1.4px solid black",
   }))
-  .addEventListener("input", (_, target) => {
+  .addEventListener(Input.events.input, (_, target) => {
     if (target.getValue(false) == "") {
       let label = target.parent.label
       if (label.cur_location == "up" || label.cur_location == undefined) {
@@ -34,14 +35,15 @@ new Input()
       }
     }
   })
-  .addEventListener("EmptyRequirement", (_, target) => {
+
+  .addEventListener(Form.events.emptyRequirement, (_, target) => {
     target.addCSSClass("horizontal-shaking")
   })
-  .addEventListener("animationend", (_, target) => {
+  .addEventListener(Component.events.animationend, (_, target) => {
     target.removeCSSClass("horizontal-shaking")
   })
   .setParentRelation("input")
-  .addEventListener("placeholderChange", (evt, target) => {
+  .addEventListener(Input.events.placeholderChange, (evt, target) => {
     target.parent.label.setText(evt.text)
   })
   .attachToParent(AnimatedInput1)
@@ -57,7 +59,7 @@ new Label()
     "--pos-top": `${position.y}px`,
     "font-family": "sofia sans",
   }))
-  .addEventListener("animationend", (evt, target) => {
+  .addEventListener(Component.events.animationend, (evt, target) => {
     if (evt.animationName == "move-down") {
       target.removeCSSClass("input-label-move-down")
       target.hide()

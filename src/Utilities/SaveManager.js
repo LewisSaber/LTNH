@@ -3,6 +3,7 @@ import EventHandler from "../Libs/LUI/EventHandler.js"
 import { mergeObject } from "../Libs/LUI/Utility.js"
 
 export default class SaveManager extends EventHandler {
+  static events = { deletedAccount: "deletedAccount" }
   constructor(page) {
     super()
     if (SaveManager.instance) return SaveManager.instance
@@ -127,6 +128,6 @@ export default class SaveManager extends EventHandler {
   }
   deleteAccount(account) {
     localStorage.removeItem("save_" + account.id)
-    this.dispatchEvent("deletedAccount", { id: account.id })
+    this.dispatchEvent(SaveManager.events.deletedAccount, { id: account.id })
   }
 }

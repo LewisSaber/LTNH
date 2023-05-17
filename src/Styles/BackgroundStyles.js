@@ -5,7 +5,7 @@ export function newMinecraftStyle(size = 0.24) {
 
 let BackgroundStyles = {
   minecraft: (size, position, pixelSize, blocks) => {
-    let s = pixelSize.x * blocks
+    let s = pixelSize * blocks
     let ss = +(s * 0.5).toFixed(2)
     let sss = +(s * 1.5).toFixed(2)
 

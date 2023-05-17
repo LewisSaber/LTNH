@@ -2,6 +2,9 @@ import EventHandler from "../Libs/LUI/EventHandler.js"
 import { mergeObject } from "../Libs/LUI/Utility.js"
 
 export default class Player extends EventHandler {
+  static events = {
+    nickChange: "nickChange",
+  }
   constructor(nickName, id) {
     super()
     this.nickName = nickName
@@ -33,7 +36,10 @@ export default class Player extends EventHandler {
     return player
   }
   setNickName(nick) {
-    this.dispatchEvent("nickChange", { from: this.nickName, to: nick })
+    this.dispatchEvent(Player.events.nickChange, {
+      from: this.nickName,
+      to: nick,
+    })
     this.nickName = nick
   }
 
